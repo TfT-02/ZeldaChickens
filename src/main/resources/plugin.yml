@@ -1,0 +1,31 @@
+name: ZeldaChickens
+version: ${project.version}-b${BUILD_NUMBER}
+description: >
+  Chickens can fight back!
+
+author: TfT_02
+website: http://dev.bukkit.org/server-mods/zeldachickens/
+
+main: com.me.tft_02.zeldachickens.ZeldaChickens
+
+commands:
+   zeldachickens:
+      description: Usage /zeldachickens
+      permission-message: You don't have <permission>
+   chickenattack:
+      description: Usage /chickenattack <player>
+      permission-message: You don't have <permission>
+
+permissions:
+    zeldachickens.bypass:
+        description: Users with this permission will not be susceptible to chicken swarm attacks.
+        default: false
+    zeldachickens.commands.zeldachickens:
+        description: Users with this permission can use the command /zeldachickens
+        default: true
+    zeldachickens.commands.chickenattack:
+        description: Users with this permission can use the command /chickenattack
+        default: OP
+    zeldachickens.commands.chickenattack.others:
+        description: Users with this permission can use the command /chickenattack for other players
+        default: OP

@@ -1,0 +1,49 @@
+#
+#  ZeldaChickens configuration
+#  Last updated on ${project.version}-b${BUILD_NUMBER}
+#
+#####
+
+#
+#  Settings for ZeldaChickens in general
+###
+General:
+    Locale: en_US
+
+    # Allow ZeldaChickens to check if a new version is available
+    Update_Check: true
+    Prefer_Beta: false
+
+    # Should ZeldaChickens print out debug messages?
+    Verbose_Logging: false
+
+    # Should ZeldaChickens over-write configs to update, or make new ones ending in .new?
+    Config_Update_Overwrite: true
+
+Chickens:
+    # The amount of chickens to spawn
+    Amount: 10
+
+    # The amount of health a chicken should have (valid values between 1-20)
+    Health: 4.0
+
+    # Amount of damage a chicken does (valid values between 1-20)
+    Damage: 2.0
+
+    # The amount of hits it takes to spawn a mob
+    Hit_Amount_Trigger: 2
+
+    # Attack range of chickens
+    Attack_Range: 1.0
+
+    # How far above the player should the chickens spawn?
+    Spawn_Height: 1.0
+
+    # Can chickens catch-up to players if they run away?
+    Teleport_Enabled: true
+
+    # How far can a player outrun a chicken before it catches up?
+    Max_Outrun_Distance: 4.0
+
+    # Should the chickens despawn after the player dies? Or re-target the player
+    Despawn_Enabled: false
