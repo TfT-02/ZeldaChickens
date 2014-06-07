@@ -30,8 +30,8 @@ Chickens:
     # Amount of damage a chicken does (valid values between 1-20)
     Damage: 2.0
 
-    # The amount of hits it takes to spawn a mob
-    Hit_Amount_Trigger: 2
+    # The chance that a chicken attacks
+    Attack_Chance: 5
 
     # Attack range of chickens
     Attack_Range: 1.0

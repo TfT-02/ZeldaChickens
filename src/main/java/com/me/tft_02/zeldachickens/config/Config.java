@@ -37,8 +37,8 @@ public class Config extends AutoUpdateConfigLoader {
             reason.add("Chickens.Damage only accepts values from 1 to 20!");
         }
 
-        if (getChickenHitTrigger() <= 0) {
-            reason.add("Chickens.Hit_Amount_Trigger should be greater than 0!");
+        if (getChickenAttackChance() <= 0) {
+            reason.add("Chickens.Attack_Chance should be greater than 0!");
         }
 
         if (getChickenAttackRange() <= 0) {
@@ -79,7 +79,7 @@ public class Config extends AutoUpdateConfigLoader {
 
     public double getChickenDamage() { return config.getDouble("Chickens.Damage", 2.0); }
 
-    public int getChickenHitTrigger() { return config.getInt("Chickens.Hit_Amount_Trigger", 2); }
+    public int getChickenAttackChance() { return config.getInt("Chickens.Attack_Chance", 5); }
 
     public double getChickenAttackRange() { return config.getDouble("Chickens.Attack_Range", 1.0); }
 

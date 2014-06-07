@@ -14,6 +14,7 @@ import com.me.tft_02.zeldachickens.ZeldaChickens;
 import com.me.tft_02.zeldachickens.config.Config;
 import com.me.tft_02.zeldachickens.runnables.ChickenDeathTask;
 import com.me.tft_02.zeldachickens.runnables.ChickenTimer;
+import com.me.tft_02.zeldachickens.util.Misc;
 
 public class ZeldaChickenPlayer {
     public Player player;
@@ -63,11 +64,11 @@ public class ZeldaChickenPlayer {
     }
 
     public void checkAttack(Chicken chicken) {
-        if (chickenTimers.isEmpty()) {
-            chickenAttacks += 1;
+        if (!chickenTimers.isEmpty()) {
+            return;
         }
 
-        if (chickenAttacks >= Config.getInstance().getChickenHitTrigger()) {
+        if (Misc.activationSuccessful(Config.getInstance().getChickenAttackChance())) {
             summonChickens(chicken);
         }
     }
