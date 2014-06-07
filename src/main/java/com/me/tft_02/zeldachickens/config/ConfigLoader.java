@@ -33,11 +33,11 @@ public abstract class ConfigLoader {
 
     protected void loadFile() {
         if (!configFile.exists()) {
-            plugin.debug("Creating Duel " + fileName + " File...");
+            plugin.debug("Creating ZeldaChickens " + fileName + " File...");
             createFile();
         }
         else {
-            plugin.debug("Loading Duel " + fileName + " File...");
+            plugin.debug("Loading ZeldaChickens " + fileName + " File...");
         }
 
         config = YamlConfiguration.loadConfiguration(configFile);
@@ -109,7 +109,7 @@ public abstract class ConfigLoader {
             plugin.debug("No errors found in " + fileName + "!");
         }
         else {
-            plugin.getLogger().warning("Errors were found in " + fileName + "! Duel was disabled!");
+            plugin.getLogger().warning("Errors were found in " + fileName + "! ZeldaChickens was disabled!");
             plugin.getServer().getPluginManager().disablePlugin(plugin);
             plugin.noErrorsInConfigFiles = false;
         }

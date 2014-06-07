@@ -63,20 +63,34 @@ public class Config extends AutoUpdateConfigLoader {
 
     /* GENERAL SETTINGS */
     public String getLocale() { return config.getString("General.Locale", "en_us"); }
+
     public boolean getUpdateCheckEnabled() { return config.getBoolean("General.Update_Check", true); }
+
     public boolean getPreferBeta() { return config.getBoolean("General.Prefer_Beta", false); }
+
     public boolean getVerboseLoggingEnabled() { return config.getBoolean("General.Verbose_Logging", false); }
+
     public boolean getConfigOverwriteEnabled() { return config.getBoolean("General.Config_Update_Overwrite", true); }
 
     /* CHICKEN SETTINGS */
     public int getChickenAmount() { return config.getInt("Chickens.Amount", 10); }
+
     public double getChickenHealth() { return config.getDouble("Chickens.Health", 4.0); }
+
     public double getChickenDamage() { return config.getDouble("Chickens.Damage", 2.0); }
+
     public int getChickenHitTrigger() { return config.getInt("Chickens.Hit_Amount_Trigger", 2); }
+
     public double getChickenAttackRange() { return config.getDouble("Chickens.Attack_Range", 1.0); }
-    public double getChickenSpawnHeight() { return config.getDouble("Chickens.Spawn_Height", 1.0); }
+
+    public double getChickenSpawnHeight() { return config.getDouble("Chickens.Spawn_Height", 2.0); }
+
     public boolean getChickenTeleportEnabled() { return config.getBoolean("Chickens.Teleport_Enabled", true); }
+
     public double getChickenOutrunDistance() { return config.getDouble("Chickens.Max_Outrun_Distance", 4.0); }
+
+    public int getAttackDuration() { return config.getInt("Chickens.Attack_Duration", 120); }
+
     public boolean getChickenDespawnEnabled() { return config.getBoolean("Chickens.Despawn_Enabled", true); }
 
     /* @formatter:on */

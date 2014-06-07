@@ -31,7 +31,7 @@ public class PlayerListener implements Listener {
                     continue;
                 }
 
-                chickenTimer.chicken.remove();
+                chickenTimer.kill();
             }
         }
 
@@ -53,10 +53,7 @@ public class PlayerListener implements Listener {
             }
 
             if (Config.getInstance().getChickenDespawnEnabled()) {
-                chickenTimer.chicken.remove();
-            }
-            else {
-                chickenTimer.player = event.getPlayer();
+                chickenTimer.kill();
             }
         }
     }

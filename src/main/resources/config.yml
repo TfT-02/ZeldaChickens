@@ -37,7 +37,7 @@ Chickens:
     Attack_Range: 1.0
 
     # How far above the player should the chickens spawn?
-    Spawn_Height: 1.0
+    Spawn_Height: 2.0
 
     # Can chickens catch-up to players if they run away?
     Teleport_Enabled: true
@@ -45,5 +45,8 @@ Chickens:
     # How far can a player outrun a chicken before it catches up?
     Max_Outrun_Distance: 4.0
 
+    # How long should the chicken attack last? (in seconds)
+    Attack_Duration: 120
+
     # Should the chickens despawn after the player dies? Or re-target the player
-    Despawn_Enabled: false
+    Despawn_Enabled: true

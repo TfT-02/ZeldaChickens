@@ -1,9 +1,17 @@
 package com.me.tft_02.zeldachickens.runnables;
 
+import java.util.Random;
+
+import org.bukkit.Effect;
 import org.bukkit.Location;
+import org.bukkit.Sound;
+import org.bukkit.World;
+import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Chicken;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.util.Vector;
 
 import com.me.tft_02.zeldachickens.config.Config;
 import com.me.tft_02.zeldachickens.datatypes.ZeldaChickenPlayer;
@@ -33,69 +41,77 @@ public class ChickenTimer extends BukkitRunnable {
     }
 
     public void run() {
-        if (!chicken.isValid() || chicken.isDead()) {
+        if (!chicken.isValid() || chicken.isDead() || player == null) {
             this.cancel();
             return;
         }
 
-        if (player != null) {
-            chicken.setTarget(player);
+        chicken.setTarget(player);
 
+        double xDistance = Math.abs(player.getLocation().getX() - chicken.getLocation().getX());
+        double yDistance = Math.abs(player.getLocation().getY() - chicken.getLocation().getY());
+        double zDistance = Math.abs(player.getLocation().getZ() - chicken.getLocation().getZ());
 
+        if ((xDistance > outrunDistance || zDistance > outrunDistance) && teleportEnabled) {
+            teleportChicken();
+        }
 
-            double xDistance = Math.abs(player.getLocation().getX() - chicken.getLocation().getX());
-            double yDistance = Math.abs(player.getLocation().getY() - chicken.getLocation().getY());
-            double zDistance = Math.abs(player.getLocation().getZ() - chicken.getLocation().getZ());
+        if ((yDistance > outrunDistance) && (!spawned)) {
+            teleportChicken();
+        }
 
-            if ((xDistance > outrunDistance || zDistance > outrunDistance) && teleportEnabled) {
-                teleportChicken();
-            }
+        if (xDistance > 1.0 || zDistance > 1.0) {
+            Vector vector = player.getLocation().toVector().subtract(chicken.getLocation().toVector());
+            vector.normalize().multiply(0.5);
+            chicken.setVelocity(vector);
+        }
 
-            if ((yDistance > outrunDistance) && (!spawned)) {
-                teleportChicken();
-            }
+        if (spawned && (this.player.getLocation().getY() - chicken.getLocation().getY() > 0.0D)) {
+            spawned = false;
+        }
 
-            if (spawned && (this.player.getLocation().getY() - chicken.getLocation().getY() > 0.0D)) {
-                spawned = false;
-            }
+        if (spawned && (yDistance > spawnHeight + 0.5D)) {
+            spawned = false;
+        }
 
-            if (spawned && (yDistance > spawnHeight + 0.5D)) {
-                spawned = false;
-            }
-
-            if ((xDistance < attackRange) && (yDistance < attackRange) && (zDistance < attackRange)) {
+        if ((xDistance < attackRange) && (yDistance < attackRange) && (zDistance < attackRange)) {
+            if (!player.isDead()) {
                 player.damage(damage, chicken);
+                chicken.getLocation().getWorld().playSound(chicken.getLocation(), Sound.CHICKEN_HURT, 1F, 1F);
             }
         }
 
         chicken.setRemainingAir(20);
     }
 
-    @Override
-    public void cancel() {
-        chicken.damage(20);
-        super.cancel();
+    public void kill() {
+        playSmokeEffect(chicken);
+        chicken.remove();
+        zeldaChickenPlayer.getChickenTimers().remove(this);
+        this.cancel();
+    }
+
+    private void playSmokeEffect(Entity entity) {
+        Location location = entity.getLocation();
+        World world = entity.getWorld();
+
+        world.playEffect(location, Effect.SMOKE, BlockFace.SOUTH_EAST);
+        world.playEffect(location, Effect.SMOKE, BlockFace.SOUTH);
+        world.playEffect(location, Effect.SMOKE, BlockFace.SOUTH_WEST);
+        world.playEffect(location, Effect.SMOKE, BlockFace.EAST);
+        world.playEffect(location, Effect.SMOKE, BlockFace.SELF);
+        world.playEffect(location, Effect.SMOKE, BlockFace.WEST);
+        world.playEffect(location, Effect.SMOKE, BlockFace.NORTH_EAST);
+        world.playEffect(location, Effect.SMOKE, BlockFace.NORTH);
+        world.playEffect(location, Effect.SMOKE, BlockFace.NORTH_WEST);
     }
 
     private void teleportChicken() {
-        // TODO this can be improved with a moderately slow ticking timer to check if a valid tp spot if available?
         Location location = player.getLocation();
-        boolean check = true;
+        Random random = new Random();
         location.setY(location.getY() + 1.0D);
-
-//        while (check) {
-//            if (location.getBlock().getType() == Material.WATER) {
-//                check = false;
-//                location.setY(location.getY());
-//            }
-//            else if ((location.getBlock().getType() == Material.AIR) && (location.getY() <= player.getLocation().getY() + spawnHeight + 1.0D)) {
-//                location.setY(location.getY() + 1.0D);
-//            }
-//            else {
-//                check = false;
-//                location.setY(location.getY() - 1.0D);
-//            }
-//        }
+        location.setX(location.getX() + random.nextDouble());
+        location.setZ(location.getZ() + random.nextDouble());
 
         chicken.teleport(location);
         spawned = true;
